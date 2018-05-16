@@ -31,6 +31,13 @@ export class Signup extends Component {
 
     this.setState({ isLoading: true });
 
+    /*
+    NOTE: 'username' key stays the same. But the value needs to match your primary attribute in Cognito.
+          In the Cognito User Pool I configured, I made email the primary attribute for login. 
+          You might use an actual "username" and simply collect email as a secondary attribute. 
+          In that case, you might write username: this.state.username
+    */
+
     try {
       const newUser = await Auth.signUp({
         username: this.state.email,
