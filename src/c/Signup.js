@@ -70,7 +70,6 @@ export class Signup extends Component {
   };
 
   handleChange = event => {
-    console.log(`ID[${event.target.className}]:Value[${event.target.value}]`);
     this.setState({
       [event.target.className]: event.target.value
     });
