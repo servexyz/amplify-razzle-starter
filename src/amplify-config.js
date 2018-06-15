@@ -18,3 +18,5 @@ export default {
     IDENTITY_POOL_ID: "us-east-1:febc91f1-be95-47aa-9536-d00d85ef5bab"
   }
 };
+
+//repoplace-registry-user-pool
