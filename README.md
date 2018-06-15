@@ -6,7 +6,7 @@
 git clone https://github.com/servexyz/amplify-razzle-starter.git
 ```
 
-![intro](https://media.giphy.com/media/Yj6TKTZxXtVsCMviNR/giphy.gif)
+![intro](https://github.com/servexyz/amplify-razzle-starter/blob/master/docs/ampstar.gif)
 
 ## Goal
 
