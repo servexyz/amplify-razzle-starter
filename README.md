@@ -1,4 +1,4 @@
-# Amplify-React-Starter
+# Amplify-Razzle-Starter
 
 ## Getting Started
 
@@ -6,7 +6,7 @@
 git clone https://github.com/servexyz/amplify-razzle-starter.git
 ```
 
-[[ docs/ampstar.gif | height = 400px ]]
+![](https://media.giphy.com/media/Yj6TKTZxXtVsCMviNR/giphy.gif)
 
 ## Goal
 
