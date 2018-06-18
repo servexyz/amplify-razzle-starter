@@ -43,9 +43,11 @@ export class Signup extends Component {
         username: this.state.email,
         password: this.state.password
       });
-      this.setState({
-        newUser
-      });
+      //TODO: replace this with this.props.history.push("/");
+      this.props.history.push("/");
+      // this.setState({
+      //   newUser
+      // });
     } catch (e) {
       alert(e.message);
     }
