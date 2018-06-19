@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
+import { Container } from "unstated";
 
+export class SignupContainer extends Container {}
 export class Signup extends Component {
   constructor(props) {
     super(props);
