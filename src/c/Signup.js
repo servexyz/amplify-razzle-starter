@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import { Auth } from "aws-amplify";
 import { Container } from "unstated";
 
-export class SignupContainer extends Container {}
-export class Signup extends Component {
-  constructor(props) {
-    super(props);
+export class SignupContainer extends Container {
+  state = {
+    isLoading: false,
+    email: "",
+    password: "",
+    confirmPassword: "",
+    confirmationCode: "",
+    newUser: null
+  };
 
-    this.state = {
-      isLoading: false,
-      email: "",
-      password: "",
-      confirmPassword: "",
-      confirmationCode: "",
-      newUser: null
-    };
-  }
   validateForm() {
     return (
       this.state.email.lenth > 0 &&
@@ -24,29 +20,16 @@ export class Signup extends Component {
     );
   }
 
-  validateConfirmationForm() {
-    return this.state.confirmationCode.length > 0;
-  }
-
   handleSubmit = async event => {
     event.preventDefault();
 
     this.setState({ isLoading: true });
-
-    /*
-    NOTE: 'username' key stays the same. But the value needs to match your primary attribute in Cognito.
-          In the Cognito User Pool I configured, I made email the primary attribute for login. 
-          You might use an actual "username" and simply collect email as a secondary attribute. 
-          In that case, you might write username: this.state.username
-    */
-
     try {
       const newUser = await Auth.signUp({
         username: this.state.email,
         password: this.state.password
       });
-      //TODO: replace this with this.props.history.push("/");
-      this.props.history.push("/");
+      this.props.history.push("/verify");
       // this.setState({
       //   newUser
       // });
@@ -57,69 +40,33 @@ export class Signup extends Component {
     this.setState({ isLoading: false });
   };
 
-  handleConfirmationSubmit = async event => {
-    event.preventDefault();
-    this.setState({ isLoading: true });
-
-    try {
-      await Auth.confirmSignUp(this.state.email, this.state.confirmationCode);
-      await Auth.signIn(this.state.email, this.state.password);
-
-      this.props.userHasAuthenticated(true);
-      this.props.history.push("/");
-    } catch (e) {
-      console.log(e.message);
-      this.setState({ isLoading: false });
-    }
-  };
-
   handleChange = event => {
     this.setState({
       [event.target.className]: event.target.value
     });
   };
+}
 
-  //Create text input components for below
-  renderConfirmationForm() {
-    return (
-      <form onSubmit={this.handleConfirmationSubmit}>
-        <input
-          className="confirmationCode"
-          type="tel"
-          onChange={this.handleChange}
-          value={this.state.confirmationCode}
-        />
-        <input type="submit" value="Verify" />
-      </form>
-    );
-  }
-
-  renderForm() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          className="email"
-          type="email"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <input
-          className="password"
-          type="password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <input type="submit" value="Signup" />
-      </form>
-    );
-  }
-  render() {
-    return (
-      <div className="Signup">
-        {this.state.newUser === null
-          ? this.renderForm()
-          : this.renderConfirmationForm()}
-      </div>
-    );
-  }
+export function Signup() {
+  return (
+    <Subscribe to={[SignupContainer]}>
+      {signup => (
+        <form onSubmit={signup.handleSubmit}>
+          <input
+            className="email"
+            type="email"
+            value={signup.email}
+            onChange={signup.handleChange}
+          />
+          <input
+            className="password"
+            type="password"
+            value={signup.state.password}
+            onChange={signup.handleChange}
+          />
+          <input type="submit" value="Signup" />
+        </form>
+      )}
+    </Subscribe>
+  );
 }
