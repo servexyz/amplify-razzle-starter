@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
-import { Container } from "unstated";
+import { Container, Subscribe } from "unstated";
 
 export class SignupContainer extends Container {
   state = {
@@ -29,10 +29,10 @@ export class SignupContainer extends Container {
         username: this.state.email,
         password: this.state.password
       });
-      this.props.history.push("/verify");
-      // this.setState({
-      //   newUser
-      // });
+      this.props.history.push("/");
+      this.setState({
+        newUser
+      });
     } catch (e) {
       alert(e.message);
     }
@@ -47,26 +47,31 @@ export class SignupContainer extends Container {
   };
 }
 
-export function Signup() {
-  return (
-    <Subscribe to={[SignupContainer]}>
-      {signup => (
-        <form onSubmit={signup.handleSubmit}>
-          <input
-            className="email"
-            type="email"
-            value={signup.email}
-            onChange={signup.handleChange}
-          />
-          <input
-            className="password"
-            type="password"
-            value={signup.state.password}
-            onChange={signup.handleChange}
-          />
-          <input type="submit" value="Signup" />
-        </form>
-      )}
-    </Subscribe>
-  );
+export class Signup extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <Subscribe to={[SignupContainer]}>
+        {signup => (
+          <form onSubmit={() => signup.handleSubmit}>
+            <input
+              className="email"
+              type="email"
+              value={signup.email}
+              onChange={signup.handleChange}
+            />
+            <input
+              className="password"
+              type="password"
+              value={signup.state.password}
+              onChange={signup.handleChange}
+            />
+            <input type="submit" value="Signup" />
+          </form>
+        )}
+      </Subscribe>
+    );
+  }
 }

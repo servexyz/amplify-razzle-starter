@@ -4,6 +4,9 @@ import { Subscribe } from "unstated";
 import { SignupContainer } from "./Signup";
 
 export class Verify extends Component {
+  constructor(props) {
+    super(props);
+  }
   validateConfirmationForm() {
     return this.state.confirmationCode.length > 0;
   }
@@ -13,6 +16,11 @@ export class Verify extends Component {
     //ie. if it was true for signupcontainer, is it true for verify?
     //or does it reset to isLoading: false ?
     this.setState({ isLoading: true });
+    console.log(
+      `Calling this.state.email in handleConfirmationSubmit: \n ${
+        this.state.email
+      }`
+    );
 
     try {
       await Auth.confirmSignUp(this.state.email, this.state.confirmationCode);
