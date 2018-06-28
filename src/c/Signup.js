@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Auth } from "aws-amplify";
+import { Container } from "unstated";
 
+export class SignupContainer extends Container {}
 export class Signup extends Component {
   constructor(props) {
     super(props);
@@ -43,9 +45,11 @@ export class Signup extends Component {
         username: this.state.email,
         password: this.state.password
       });
-      this.setState({
-        newUser
-      });
+      //TODO: replace this with this.props.history.push("/");
+      this.props.history.push("/");
+      // this.setState({
+      //   newUser
+      // });
     } catch (e) {
       alert(e.message);
     }

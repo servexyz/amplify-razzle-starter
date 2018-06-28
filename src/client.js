@@ -4,6 +4,7 @@ import React from "react";
 import { hydrate } from "react-dom";
 import Amplify from "aws-amplify";
 import config from "./amplify-config";
+import { Provider } from "unstated";
 
 Amplify.configure({
   Auth: {
@@ -30,9 +31,11 @@ Amplify.configure({
 });
 
 hydrate(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 
