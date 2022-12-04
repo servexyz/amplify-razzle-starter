@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "aws-amplify": "<=0.3.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "razzle": "^3.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
